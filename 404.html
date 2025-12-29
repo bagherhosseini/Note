@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<title>404 Not found</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b0d0f;--surface:#0f1316;--text:#e6eef3;--muted:#9aa6b2;--accent:#7dd3fc}
+  @media (prefers-color-scheme: light){:root{--bg:#f7f9fb;--surface:#ffffff;--text:#0b1220;--muted:#52606d;--accent:#2563eb}}
+  html[data-theme="light"]{:root{--bg:#f7f9fb;--surface:#ffffff;--text:#0b1220;--muted:#52606d;--accent:#2563eb}}
+  html[data-theme="dark"]{:root{--bg:#0b0d0f;--surface:#0f1316;--text:#e6eef3;--muted:#9aa6b2;--accent:#7dd3fc}}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial}
+  body{display:flex;align-items:center;justify-content:center;padding:28px}
+  body > *{max-width:720px;text-align:center}
+
+  h1{font-size:2.4rem;font-weight:600;margin-bottom:0.25em}
+  p{margin-bottom:1.6em;color:var(--muted)}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;transition:opacity .16s}
+  a:hover{opacity:.72}
+  #theme-toggle{position:fixed;right:16px;top:16px;z-index:9999;border:0;background:transparent;color:var(--text);font-size:18px;padding:8px;border-radius:10px;cursor:pointer;box-shadow:0 4px 18px rgba(2,6,23,0.45)}
+</style>
+<body>
+  <h1>404</h1>
+  <p>Page not found</p>
+  <a href="/">Go home</a>
+  <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+  <script>
+    (function(){
+      const html = document.documentElement
+      const toggle = document.getElementById('theme-toggle')
+      function applyTheme(t){ html.dataset.theme = t; localStorage.setItem('theme', t); toggle.textContent = t === 'light' ? '☀️' : '🌙' }
+      const saved = localStorage.getItem('theme')
+      if (saved) applyTheme(saved)
+      else applyTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+      toggle.addEventListener('click', ()=> applyTheme(html.dataset.theme === 'light' ? 'dark' : 'light'))
+    })()
+  </script>
+</body>
